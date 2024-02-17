@@ -176,6 +176,11 @@ class CartItems extends HTMLElement {
       })
       .finally(() => {
         this.disableLoading(line);
+        console.log("call out")
+          if($(".RemoveAllProduct").length <= 0){
+            console.log("call in")
+            $(".extraproductIncart").find("cart-remove-button").trigger("click");
+          }
       });
   }
 

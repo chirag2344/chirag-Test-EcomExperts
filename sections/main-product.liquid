@@ -595,6 +595,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+      {% if product.handle == "dark-winter-jacket" %}
+        window.location.href = "/";
+      {% endif %}
+
       function isIE() {
         const ua = window.navigator.userAgent;
         const msie = ua.indexOf('MSIE ');

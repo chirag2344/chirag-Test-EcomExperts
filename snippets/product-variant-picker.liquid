@@ -9,7 +9,33 @@
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
+
 {%- unless product.has_only_default_variant -%}
+
+{%- for option in product.options -%}
+  {%- assign option_index = forloop.index0 -%}
+  {%- assign opt = option -%}
+  {%- if opt == 'Color' -%}
+    <ul class="variant_product">
+      {%- assign values = '' -%}
+      {%- for variant in product.variants -%}
+        {%- assign value = variant.options[option_index] -%}
+        {%- unless values contains value -%}
+          {%- assign values = values | join: ',' -%}
+          {%- assign values = values | append: ',' | append: value -%} 
+          {%- assign values = values | split: ',' -%}
+          <li class="HorizontalList__Item{% unless variant.available %} soldout-variant{% endunless %}">
+            <label class="product_variant" >
+              <img src="{{ variant.image | img_url:"1024x1024"}}" color_name="{{ value }}">
+            </label>
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+    {%- break -%}
+  {%- endif -%}
+  {%- endfor -%}
+
   <variant-selects
     id="variant-selects-{{ section.id }}"
     class="no-js-hidden"
@@ -49,7 +75,7 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+        <fieldset class="js product-form__input product-form__input--pill hidden">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options',
             product: product,
@@ -58,6 +84,19 @@
             picker_type: picker_type
           %}
         </fieldset>
+
+        {% if option.name == "Size" %}
+          <div class="block__product-size-variant">
+          <legend class="form__label">{{ option.name }}</legend>
+           <select class="select__select">
+            <option>Unselected</option>
+              {%- for value in option.values -%}
+                <option value="{{ value }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
