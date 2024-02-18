@@ -3517,3 +3517,24 @@ details-disclosure > details {
     --border-offset: 0px; /* Prevent the border from growing on buttons when this effect is on. */
   }
 }
+.variant_product {
+  padding: 0;
+}
+.variant_product .HorizontalList__Item {
+  list-style: none;
+  display: inline-block;
+  padding: 10px;
+
+}
+.variant_product .HorizontalList__Item label {
+  width: 70px;
+  display: inline-block;
+  border: 1px solid #000;
+}
+.variant_product .HorizontalList__Item label img {
+  width: 100%;
+  vertical-align: middle;
+}
+.product-variant-error {
+  color: red;
+}
