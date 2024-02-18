@@ -3535,3 +3535,6 @@ details-disclosure > details {
   width: 100%;
   vertical-align: middle;
 }
+.product-variant-error {
+  color: red;
+}

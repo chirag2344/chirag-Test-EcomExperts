@@ -20,6 +20,13 @@ if (!customElements.get('product-form')) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
 
+        if($(".select__select").val() == "Unselected"){
+          $(".product-variant-error").removeClass("hidden");
+          return
+        }else{
+          $(".product-variant-error").addClass("hidden");
+        }
+
         this.handleErrorMessage();
 
         this.submitButton.setAttribute('aria-disabled', true);
@@ -62,6 +69,7 @@ if (!customElements.get('product-form')) {
               return;
             } else if (!this.cart) {
 
+              if(response.variant_id == "47981394723097"){
                 let data = {
                   id: 47961011978521,
                   quantity: 1
@@ -78,6 +86,9 @@ if (!customElements.get('product-form')) {
                     
                   }
                 });
+              }else{
+                window.location = window.routes.cart_url;
+              }
 
               
               return;
